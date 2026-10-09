@@ -32,7 +32,9 @@ permissions:
   packages: write
 
 env:
-  IMAGE_NAME: g0ldyy/comet
+  # Was g0ldyy/comet upstream. A fork cannot push to the upstream owner's
+  # namespace, so the build failed at the push step with a permission error.
+  IMAGE_NAME: mohamediburan/comet
 
 jobs:
   build-and-push:

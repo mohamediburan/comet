@@ -14,7 +14,11 @@ jobs:
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/development'
     uses: ./.github/workflows/docker-build-common.yml
     with:
-      push-to-dockerhub: true
+      # Upstream publishes to Docker Hub; this fork does not. The job below only
+      # has GITHUB_TOKEN, so the Docker Hub login would fail on missing
+      # DOCKER_HUB_USERNAME/DOCKER_HUB_ACCESS_TOKEN secrets before the build ran.
+      # ghcr.io (same job, GITHUB_TOKEN) is the registry this fork deploys from.
+      push-to-dockerhub: false
       tags: |
         type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
         type=raw,value=dev,enable=${{ github.ref == 'refs/heads/development' }}
